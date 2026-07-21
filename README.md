@@ -103,6 +103,8 @@ AI-Resume-Reviewer/
 - File Handling
 
 ---
+---SCREENSHOT---
+![AI Resume Reviewer screenshot](https://github.com/saideeraj-929/Ai_Resume_Reviewer/blob/ac91706f168d0021371dcb3dc799cc5526764c6e/Ai_Resume%20screenshot.png)
 
 ## 🔮 Future Improvements
 

@@ -118,5 +118,5 @@ response_box = tk.Text(
     wrap="word"
 )
 response_box.pack(pady=10)
-load_review()
+
 window.mainloop()

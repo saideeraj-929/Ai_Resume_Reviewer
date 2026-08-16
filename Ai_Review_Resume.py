@@ -40,6 +40,15 @@ def load_review():
         messagebox.showerror("Error",
             "No saved review found"
                              )
+def word_length(event=None):
+    resume =resume_entry.get("1.0",tk.END).strip()
+    if resume :
+        count =len(resume.split())
+    else:
+        count =0
+    word_label.config(text=f"words:{count}")
+  
+
 def clear():
     resume_entry.delete("1.0", tk.END)
     response_box.delete("1.0", tk.END)
@@ -53,7 +62,8 @@ def review_resume():
         response_box.delete("1.0", tk.END)
         response_box.insert(tk.END, "Please paste your resume first.")
         return
-
+    status_label.config(text="⏳ Reviewing resume...")
+    window.update()
     messages = [
         {
             "role": "system",
@@ -87,9 +97,11 @@ def review_resume():
         review=response.choices[0].message.content
         response_box.delete("1.0",tk.END)
         response_box.insert(tk.END,review)
+        status_label.config(text="✅ Review completed")
     except Exception as e:
         response_box.delete("1.0", tk.END)
         response_box.insert(tk.END, f"Error:\n\n{e}")
+        status_label.config(text="❌ Review failed")
 tk.Label(window,text="Paste your Resume here",font=("Arial",13,"bold")).pack()
 
 resume_entry = tk.Text(
@@ -100,6 +112,18 @@ resume_entry = tk.Text(
     
 )
 resume_entry.pack(pady=10)
+resume_entry.bind("<KeyRelease>", word_length)
+word_label=tk.Label(window,text="Words:0",font=("Arial",11),bg="pink")
+word_label.pack(pady=5)
+status_label = tk.Label(
+    window,
+    text="Ready",
+    font=("Arial", 10),
+    bg="#EAF4FF"
+)
+
+status_label.pack(pady=5)
+
 review_button=tk.Button(window,text="Review Resume",font=("Arial",11),bg="#2196F3",command=review_resume)
 review_button.pack(pady=5)
 save_button=tk.Button(window,text="Save Review",font=("Arial",11),bg="#4CAF50",command=save_review)
@@ -118,5 +142,6 @@ response_box = tk.Text(
     wrap="word"
 )
 response_box.pack(pady=10)
+
 
 window.mainloop()
